@@ -109,7 +109,7 @@ const ProductTile = ({ p, big, lang = "en" }) => {
 const L = {
 en: {
   nav: { back: "← Back", next: "Next →", restart: "Restart", intro: "Introduction", act: "Act" },
-  hdr: { title: "partner journey", sub: "How you resell and deploy predictive assessment across your own clients — from programme to margin.",
+  hdr: { title: "partner journey", sub: "Four partner programmes, one journey: your role, your reward, your tools — and what a year with AssessFirst looks like.",
     acts: { 0: "Welcome", 1: "Your programme", 2: "What you sell", 3: "What you earn", 4: "What comes next" } },
   profiles: [["rpo", "RPO & outsourcing"], ["recruit", "Recruitment & staffing"], ["consult", "HR consulting & training"]],
   welcome: {
@@ -157,7 +157,7 @@ en: {
 },
 fr: {
   nav: { back: "← Retour", next: "Suivant →", restart: "Recommencer", intro: "Introduction", act: "Acte" },
-  hdr: { title: "parcours partenaire", sub: "Comment vous revendez et déployez l'évaluation prédictive chez vos propres clients — du programme à la marge.",
+  hdr: { title: "parcours partenaire", sub: "Quatre programmes partenaires, un parcours : votre rôle, votre rémunération, vos outils — et à quoi ressemble une année avec AssessFirst.",
     acts: { 0: "Bienvenue", 1: "Votre programme", 2: "Ce que vous vendez", 3: "Ce que vous gagnez", 4: "Et ensuite" } },
   profiles: [["rpo", "RPO & externalisation"], ["recruit", "Recrutement & staffing"], ["consult", "Conseil RH & formation"]],
   welcome: {
