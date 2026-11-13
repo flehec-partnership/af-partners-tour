@@ -1,13 +1,27 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="robots" content="noindex, nofollow" />
-    <title>AssessFirst — Partner Journey</title>
-  </head>
-  <body style="margin:0">
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Découvrez le partenariat AssessFirst : vos missions, notre collaboration, votre modèle économique.">
+  <title>AssessFirst — Construisons la suite</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Aller au contenu</a>
+  <div class="spectrum"></div>
+  <header class="header">
+    <a href="#1" class="brand" aria-label="AssessFirst, début de la présentation"><img id="official-mark" class="official-mark" alt="">AssessFirst<span class="brand-divider"></span><span class="brand-sub">Partenaires</span></a>
+    <div class="header-actions"><div class="language-switch" role="group" aria-label="Language"><button data-language="fr" lang="fr" aria-pressed="true">FR</button><button data-language="en" lang="en" aria-pressed="false">EN</button><button data-language="it" lang="it" aria-pressed="false">IT</button><button data-language="es" lang="es" aria-pressed="false">ES</button><button data-language="pt" lang="pt" aria-pressed="false">PT</button></div></div>
+  </header>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Parcours">
+      <div class="sidebar-label">Une collaboration.<br>De nouvelles possibilités.</div>
+      <nav id="navigation" aria-label="Étapes de la présentation"></nav>
+      <div class="sidebar-bottom"><span class="tiny-dot"></span>Le partenariat, à votre rythme.<br><span>6 étapes · les détails à la demande</span></div>
+    </aside>
+    <main id="main" tabindex="-1"></main>
+  </div>
+  <footer class="footer"><button id="previous" class="text-button">← Retour</button><div id="step-count" class="step-count" aria-live="polite"></div><button id="next" class="button pink">Découvrir la suite <span aria-hidden="true">→</span></button></footer>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
 </html>
