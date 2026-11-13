@@ -575,4 +575,64 @@ document.addEventListener('input',e=>{
 });
 $('#previous').addEventListener('click',()=>go(state.step-1));$('#next').addEventListener('click',()=>go(state.step+1));
 window.addEventListener('hashchange',()=>{if(location.hash!=='#main')go(Math.max(1,Math.min(6,parseInt(location.hash.slice(1),10)||1)))});
-render();
+
+const ACCESS_SESSION_KEY = "af_rd_auth";
+const ACCESS_CODE_DIGEST = "c253d5ba01c1771b66809692e58fe0fe1292824bd9478f5ff7a53f3d1e2bebe7";
+function startPartnerJourney() {
+  document.querySelector('#access-gate')?.remove();
+  document.querySelector('#partner-journey').hidden = false;
+  render();
+}
+function requestPartnerAccess() {
+  let granted = false;
+  try { granted = sessionStorage.getItem(ACCESS_SESSION_KEY) === '1'; } catch {}
+  if (granted) { startPartnerJourney(); return; }
+  const gate = document.querySelector('#access-gate');
+  const copy = {
+    fr:['Programme partenaires','Saisissez votre code d’accès pour découvrir le parcours partenaire.','Code d’accès','Entrer','Code incorrect. Veuillez réessayer.'],
+    en:['Partner programme','Enter your access code to explore the partner journey.','Access code','Enter','Incorrect code. Please try again.'],
+    it:['Programma partner','Inserisci il codice di accesso per scoprire il percorso partner.','Codice di accesso','Entra','Codice errato. Riprova.'],
+    es:['Programa de partners','Introduce tu código de acceso para descubrir el recorrido de partners.','Código de acceso','Entrar','Código incorrecto. Inténtalo de nuevo.'],
+    pt:['Programa de parceiros','Introduza o seu código de acesso para descobrir o percurso de parceiros.','Código de acesso','Entrar','Código incorreto. Tente novamente.']
+  };
+  gate.innerHTML = `<section class="access-card" aria-labelledby="access-heading"><div class="access-brand"><img src="${BRAND_ASSETS.mark}" alt="" width="40" height="40"><span>AssessFirst</span></div><div class="access-language"><label for="access-language">Language</label><select id="access-language"><option value="fr">Français</option><option value="en">English</option><option value="it">Italiano</option><option value="es">Español</option><option value="pt">Português</option></select></div><h1 id="access-heading"></h1><p id="access-intro"></p><form id="access-form"><label for="access-code" id="access-label"></label><input id="access-code" type="password" autocomplete="current-password" required aria-describedby="access-error"><p id="access-error" role="alert"></p><button class="button pink" type="submit" id="access-submit"></button></form></section>`;
+  const language = gate.querySelector('#access-language');
+  language.value = state.lang;
+  let incorrect = false;
+  function updateAccessCopy() {
+    const c = copy[language.value];
+    document.documentElement.lang = language.value;
+    gate.querySelector('#access-heading').textContent = c[0];
+    gate.querySelector('#access-intro').textContent = c[1];
+    gate.querySelector('#access-label').textContent = c[2];
+    gate.querySelector('#access-submit').textContent = c[3];
+    gate.querySelector('#access-error').textContent = incorrect ? c[4] : '';
+  }
+  language.addEventListener('change', updateAccessCopy);
+  gate.querySelector('#access-code').addEventListener('input', () => {
+    incorrect = false;
+    gate.querySelector('#access-code').removeAttribute('aria-invalid');
+    updateAccessCopy();
+  });
+  gate.querySelector('#access-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const field = gate.querySelector('#access-code');
+    const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(field.value.trim().toUpperCase()));
+    const hash = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, '0')).join('');
+    field.value = '';
+    if (hash !== ACCESS_CODE_DIGEST) {
+      incorrect = true;
+      field.setAttribute('aria-invalid','true');
+      updateAccessCopy();
+      field.focus();
+      return;
+    }
+    try { sessionStorage.setItem(ACCESS_SESSION_KEY, '1'); } catch {}
+    state.lang = language.value;
+    startPartnerJourney();
+    document.querySelector('#main').focus({preventScroll:true});
+  });
+  updateAccessCopy();
+  gate.querySelector('#access-code').focus();
+}
+requestPartnerAccess();
