@@ -40,3 +40,5 @@
 #partner-journey{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
 #partner-journey .footer{position:fixed;inset:auto 0 0;z-index:20;width:100%;min-height:80px;background:var(--paper);box-shadow:0 -6px 24px #20202406;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}
 html{scroll-padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))}
+
+.renewal-projection{border-top:1px solid #ffffff28;margin-top:22px;padding-top:20px}.renewal-projection h3{font-size:15px;margin-bottom:12px}.projection-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:8px 0;font-size:13px}.projection-row strong{white-space:nowrap}.projection-total{border-top:1px solid #ffffff28;margin-top:6px;padding-top:12px;color:#ff76b9}.renewal-projection p{font-size:11px;color:#b8b8c0;margin-top:10px}
